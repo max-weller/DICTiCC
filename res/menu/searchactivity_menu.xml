@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/dictselectbutton" android:title="@string/select_dictionary" android:titleCondensed="@string/select" android:icon="@drawable/ic_menu_archive"></item>
+    <item android:id="@+id/import_dictionary" android:title="@string/import_dictionary" android:titleCondensed="@string/import_" android:icon="@android:drawable/ic_menu_add"></item>
+    <item android:id="@+id/item1" android:title=" debug" android:visible="false"></item><item android:id="@+id/settings" android:title="@string/settings" android:icon="@drawable/ic_menu_preferences"></item>
+    <item android:id="@+id/help" android:title="@string/help" android:icon="@drawable/ic_menu_help"></item>
+    
+</menu>

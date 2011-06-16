@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World!</string>
+    <string name="app_name">DICTiCC</string>
+    <string name="select_dictionary">Wörterbuch auswählen...</string>
+    <string name="dictionary">Wörterbuch</string>
+    <string name="enter_word">Wort eingeben...</string>
+    <string name="import_dictionary">Wörterbuch importieren</string>
+    <string name="import_">Importieren</string>
+    <string name="select">Auswählen</string>
+    <string name="settings">Optionen</string>
+    <string name="help">Hilfe</string>
+    <string name="importing_dictionary_long">Wörterbuch wird importiert\nEile mit Weile ...\n</string>
+    <string name="download_dictionaries">Wörterbücher herunterladen...</string>
+    <string name="no_dictionaries_helptext">&lt;p&gt;&lt;b&gt;&lt;font color=&quot;#ffff66&quot;&gt;Du hast noch keine Wörterbücher geladen.&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Drücke die Menütaste, um ein Wörterbuch von der SD-Karte zu importieren, oder um weitere Informationen zum Download von Wörterbüchern aus dem Internet zu erhalten.&lt;/p&gt;</string>
+    <string name="result_count_toast" formatted="false">%d Ergebnisse in %.2g sek</string>
+    <string name="import_all_dictionaries">Alle Wörterbücher in diesem Ordner importieren ...</string>
+    <string name="aboutscreen_heading">&lt;b&gt;&lt;font size=8 color=#aaaaff&gt;DICT&lt;/font&gt;&lt;font size=6 color=#aaaaaa&gt;i&lt;/font&gt;&lt;font size=8 color=#aaaaff&gt;CC&lt;/font&gt;&lt;/b&gt;</string>
+    <string name="aboutscreen_helptext">
+    &lt;p&gt;Website und Dokumentation zur App:&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://dicticc.wikilab.de&quot;&gt;http://dicticc.wikilab.de&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;b&gt;Copyright-Hinweise:&lt;/b&gt;&lt;/p&gt;
+    &lt;p&gt;Copyright (c) 2011 by &lt;a href=&quot;http://www.max-weller.de&quot;&gt;Max Weller&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;Die Wörterbuch-Datenbanken von &lt;b&gt;dict.cc&lt;/b&gt; unterliegen können unter folgendem Link angefordert werden. Dort sind auch die Nutzungsbedingungen nachzulesen.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www1.dict.cc/translation_file_request.php&quot;&gt;http://www1.dict.cc/translation_file_request.php&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;DICTiCC is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.&lt;/p&gt;
+		&lt;p&gt;DICTiCC is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.&lt;/p&gt;
+		&lt;p&gt;You should have received a copy of the GNU General Public License
+		along with DICTiCC.  If not, see &lt;a href=&quot;http://www.gnu.org/licenses/&quot;&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;
+		</string>
+</resources>

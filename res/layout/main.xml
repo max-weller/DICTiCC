@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+			<EditText android:id="@+id/searchbox" android:hint="@string/enter_word" android:singleLine="true" android:imeOptions="actionSearch|flagNoExtractUi" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" />
+			<Button android:id="@+id/dictselectbutton" android:text="@string/dictionary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0" />
+		</LinearLayout>
+		
+		<ListView android:id="@+id/contentlist" android:layout_width="fill_parent" android:layout_height="wrap_content"></ListView>
+		
+</LinearLayout>
