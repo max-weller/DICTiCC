@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="!!! D E B U G !!!" android:key="c_debug">
+        <Preference android:title="show debug file manager" android:key="debug_fileman"></Preference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/behavior" android:key="c_behav">
+        <CheckBoxPreference android:key="behav_hide_keyboard_after_search" android:title="@string/hide_keyboard_after_search" android:summary="@string/hide_keyboard_after_search_desc"></CheckBoxPreference>
+    </PreferenceCategory>
+</PreferenceScreen>
