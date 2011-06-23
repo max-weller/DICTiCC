@@ -5,6 +5,7 @@
         <Preference android:title="show debug file manager" android:key="debug_fileman"></Preference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/behavior" android:key="c_behav">
-        <CheckBoxPreference android:key="behav_hide_keyboard_after_search" android:title="@string/hide_keyboard_after_search" android:summary="@string/hide_keyboard_after_search_desc"></CheckBoxPreference>
+        <CheckBoxPreference android:key="behav_hide_keyboard_after_search" android:title="@string/hide_keyboard_after_search" android:summary="@string/hide_keyboard_after_search_desc" android:defaultValue="false"></CheckBoxPreference>
+        <CheckBoxPreference android:key="behav_livesearch" android:title="@string/behav_livesearch" android:summary="@string/behav_livesearch_desc" android:defaultValue="false"></CheckBoxPreference>
     </PreferenceCategory>
 </PreferenceScreen>

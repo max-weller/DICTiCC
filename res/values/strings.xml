@@ -12,7 +12,9 @@
     <string name="help">Hilfe</string>
     <string name="importing_dictionary_long">Wörterbuch wird importiert\nEile mit Weile ...\n</string>
     <string name="download_dictionaries">Wörterbücher herunterladen...</string>
+    <string name="no_dictionary_selected_helptext">&lt;p&gt;&lt;b&gt;&lt;font color=&quot;#ffff66&quot;&gt;Kein Wörterbuch ausgewählt.&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Drücke den Button "Wörterbuch" rechts oben. Dort kannst du ein Wörterbuch auswählen, falls du schon eines importiert hast.&lt;/p&gt;&lt;p&gt;Ansonsten folge dort den Anweisungen, um Wörterbücher herunterzuladen und zu importieren.&lt;/p&gt;</string>
     <string name="no_dictionaries_helptext">&lt;p&gt;&lt;b&gt;&lt;font color=&quot;#ffff66&quot;&gt;Du hast noch keine Wörterbücher geladen.&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Drücke die Menütaste, um ein Wörterbuch von der SD-Karte zu importieren, oder um weitere Informationen zum Download von Wörterbüchern aus dem Internet zu erhalten.&lt;/p&gt;</string>
+    <string name="enter_term_helptext">&lt;p&gt;&lt;b&gt;&lt;font color=&quot;#ffff66&quot;&gt;Bitte einen Suchbegriff eingeben.&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Oder drücke auf "Wörterbuch", um die Sprache zu wechseln.&lt;/p&gt;</string>
     <string name="result_count_toast" formatted="false">%d Ergebnisse in %.2g sek</string>
     <string name="import_all_dictionaries">Alle Wörterbücher in diesem Ordner importieren ...</string>
     <string name="aboutscreen_heading">&lt;b&gt;&lt;font size=8 color=#aaaaff&gt;DICT&lt;/font&gt;&lt;font size=6 color=#aaaaaa&gt;i&lt;/font&gt;&lt;font size=8 color=#aaaaff&gt;CC&lt;/font&gt;&lt;/b&gt;</string>
@@ -41,4 +43,6 @@
     <string name="download_info_dlg_title">Hinweise</string>
     <string name="download_info_dlg_content">- Bitte die Nutzungsbedingungen lesen.\n- Bei Version darf NICHT \'Elcombri\' stehen, sondern \'tab delimited\'.\n- Wenn möglich eine Mail-Adresse verwenden, auf die du von diesem Gerät zugreifen kannst.\n- Weitere Infos in der Hilfe.</string>
     <string name="download_info_dlg_okbutton">Gelesen und verstanden!</string>
+    <string name="behav_livesearch">Live-Suche</string>
+    <string name="behav_livesearch_desc">während dem Eintippen suchen</string>
 </resources>

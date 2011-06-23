@@ -98,6 +98,7 @@ public class DictionarySelectActivity extends ListActivity {
         	file_prefix_list = file_prefixes.toArray(new String[0]);
 	        
 	        setListAdapter(new GenericStringAdapter(DictionarySelectActivity.this, R.layout.listitem_dictionary, R.id.text, getLayoutInflater(), file_list, false));
+
         }
     }
     

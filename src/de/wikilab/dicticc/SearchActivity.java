@@ -34,7 +34,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,6 +45,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +59,12 @@ public class SearchActivity extends Activity {
 	
 	String dictFile,dictTitle;
 	ProgressDialog progdialog;
+	
+	boolean dictSearchInAction = false;
+	
+	//Settings:
+	boolean hideKeyboardAfterSearch;
+	boolean enableLivesearch;
 	
     /** Called when the activity is first created. */
     @Override
@@ -93,12 +102,44 @@ public class SearchActivity extends Activity {
             }
         });
         
+        searchbox.addTextChangedListener(new TextWatcher() {
+			@Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			@Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				if (enableLivesearch && s.length() > 1 && dictFile != null && dictSearchInAction == false) {
+					DictionarySearcher ds = new DictionarySearcher();
+			    	ds.targetList = (ListView) findViewById(R.id.contentlist);
+			    	ds.execute(dictFile, s.toString());
+				}
+			}
+		});
+        
         dictselectbutton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				selectDictionary();
 			}
 		});
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(SearchActivity.this);
+        hideKeyboardAfterSearch = pref.getBoolean("behav_hide_keyboard_after_search", false);
+        enableLivesearch = pref.getBoolean("behav_livesearch", false);
+        
+        if (dictFile == null) {
+        	((EditText)findViewById(R.id.searchbox)).setEnabled(false);
+        	((ListView)findViewById(R.id.contentlist)).setAdapter(new GenericStringAdapter(SearchActivity.this, R.layout.listitem_dictionary, R.id.text, getLayoutInflater(), new String[]{getString(R.string.no_dictionary_selected_helptext)}, true));
+        } else {
+        	((EditText)findViewById(R.id.searchbox)).setEnabled(true);
+        	((ListView)findViewById(R.id.contentlist)).setAdapter(new GenericStringAdapter(SearchActivity.this, R.layout.listitem_dictionary, R.id.text, getLayoutInflater(), new String[]{getString(R.string.enter_term_helptext)}, true));
+        }
+        
     }
     
     void selectDictionary() {
@@ -117,6 +158,8 @@ public class SearchActivity extends Activity {
     
 
     void doSearch() {
+    	if (dictSearchInAction) return;
+    	
         final EditText searchbox = (EditText) findViewById(R.id.searchbox);
     	if (dictFile == null) {
     		Toast.makeText(SearchActivity.this, "Bitte ein Wörterbuch auswählen!", Toast.LENGTH_SHORT).show();
@@ -129,8 +172,11 @@ public class SearchActivity extends Activity {
     		return;
     	}
     	
-    	searchbox.clearFocus();
-    	
+    	if (hideKeyboardAfterSearch) {
+	    	searchbox.clearFocus();
+	    	InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+	    	imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+    	}
     	//progdialog = ProgressDialog.show(SearchActivity.this, null, "Wörterbuch wird durchsucht...", true);
     	
     	DictionarySearcher ds = new DictionarySearcher();
@@ -183,7 +229,6 @@ public class SearchActivity extends Activity {
         }
     }
     
-    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
@@ -211,6 +256,7 @@ public class SearchActivity extends Activity {
     	
 		@Override
 		protected ResultSet doInBackground(String... params) {
+			dictSearchInAction = true;
 			ResultSet result = new ResultSet();
 			result.anfang = android.os.Process.getElapsedCpuTime();
 			String dictFilePrefix = params[0], searchTerm = params[1].toLowerCase();
@@ -272,6 +318,7 @@ public class SearchActivity extends Activity {
 			} else {
 				MessageBox.alert(SearchActivity.this, result.error, "Fehler!");
 			}
+			dictSearchInAction = false;
 			super.onPostExecute(result);
 		}
 		
