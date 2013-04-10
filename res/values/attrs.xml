@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="groupHeader" format="reference" />
+    <attr name="translationLeft" format="reference" />
+    <attr name="translationRight" format="reference" />
+    
+</resources>

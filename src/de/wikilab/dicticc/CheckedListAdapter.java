@@ -19,23 +19,31 @@
 
 package de.wikilab.dicticc;
 
+import java.util.List;
+
+import de.wikilab.dicticc.DictionarySelectActivity.Dictfileitem;
+
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class GenericStringAdapter extends ArrayAdapter<String> {
-	private int ViewResourceId, TextViewResourceId;
+
+
+public class CheckedListAdapter extends ArrayAdapter<Dictfileitem> {
+	private int ViewResourceId, TextViewResourceId, CheckboxResourceId;
 	private LayoutInflater Inflater;
 	boolean AllowHtml;
 	
-	public GenericStringAdapter(Context context, int viewResourceId, int textViewResourceId, LayoutInflater inflater,
-	String[] objects, boolean allowHtml) {
+	public CheckedListAdapter(Context context, int viewResourceId, int textViewResourceId, int checkboxResourceId, LayoutInflater inflater,
+	List<Dictfileitem> objects, boolean allowHtml) {
 		super(context, textViewResourceId, objects);
 		TextViewResourceId = textViewResourceId;
+		CheckboxResourceId = checkboxResourceId;
 		ViewResourceId = viewResourceId;
 		Inflater = inflater;
 		AllowHtml = allowHtml;
@@ -45,9 +53,12 @@ public class GenericStringAdapter extends ArrayAdapter<String> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View row=Inflater.inflate(ViewResourceId, parent, false);
 		TextView label=(TextView)row.findViewById(TextViewResourceId);
+		ImageView checkbox=(ImageView)row.findViewById(CheckboxResourceId);
 		
-		String txt = getItem(position);
-		if (AllowHtml) label.setText(Html.fromHtml(txt)); else label.setText(txt);
+		Dictfileitem item = getItem(position);
+		if (AllowHtml) label.setText(Html.fromHtml(item.title)); else label.setText(item.title);
+		
+		if (item.selected) checkbox.setImageResource(android.R.drawable.checkbox_on_background); else checkbox.setImageResource(android.R.drawable.checkbox_off_background);
 		
 		return row;
 	}

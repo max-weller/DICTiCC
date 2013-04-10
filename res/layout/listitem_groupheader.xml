@@ -5,7 +5,8 @@
   android:layout_height="fill_parent"
   android:orientation="horizontal">
   
-  <TextView android:layout_width="fill_parent" android:textColor="#aaf" android:textSize="11pt" android:textStyle="bold"
-            android:layout_height="wrap_content" android:id="@+id/text"></TextView>
+  <TextView android:layout_width="fill_parent" 
+            android:layout_height="wrap_content" android:id="@+id/text"
+            style="?groupHeader"></TextView>
   
 </LinearLayout>

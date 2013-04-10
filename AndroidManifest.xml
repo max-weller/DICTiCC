@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="de.wikilab.dicticc"
-      android:versionCode="1"
-      android:versionName="1.0">
-      
+      android:installLocation="auto"
+      android:versionCode="14" android:versionName="2012-01-22">
+
 <!-- 
 /**
  *  This file is part of DICTiCC.
@@ -25,12 +25,12 @@
  */
 -->
 
-    <uses-sdk android:minSdkVersion="7" />
+    <uses-sdk android:minSdkVersion="9" />
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".SearchActivity"
-                  android:label="@string/app_name">
+        <activity android:name=".SearchActivity" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -39,7 +39,7 @@
 				
 				<activity android:name=".DebugActivity" android:label="!!! D E B U G !!!"></activity>
 				
-				<activity android:name=".DictionarySelectActivity" android:label="@string/select_dictionary"></activity>
+				<activity android:name=".DictionarySelectActivity" android:label="@string/select_dictionary" android:screenOrientation="portrait"></activity>
 				<activity android:name=".PrefsActivity" android:label="@string/settings"></activity>
 				<activity android:name=".DictionaryImportActivity" android:label="@string/import_dictionary" android:screenOrientation="portrait"></activity>
 				<activity android:name=".AboutScreenActivity" android:label="@string/help" android:screenOrientation="portrait"></activity>

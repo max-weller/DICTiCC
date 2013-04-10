@@ -3,9 +3,15 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
-	  <TextView android:id="@+id/text"
-	  android:layout_width="fill_parent"
-	  android:layout_height="fill_parent"
+  
+   <ImageView android:id="@+id/selector"
+   android:layout_width="wrap_content" android:layout_height="wrap_content"
+   android:src="@android:drawable/checkbox_off_background" android:padding="14dip" />
+  
+	  <TextView android:id="@android:id/content"
+	  android:layout_width="fill_parent" android:layout_height="fill_parent"
+	  android:focusable="false"
+	  android:focusableInTouchMode="false"
 	  android:textSize="12pt"
 	  android:padding="5dip"></TextView>
 </LinearLayout>

@@ -1,3 +1,22 @@
+/**
+ *  This file is part of DICTiCC.
+ *  
+ *  DICTiCC is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  DICTiCC is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU General Public License
+ *  along with DICTiCC.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ *  Copyright (c) 2011 by Max Weller <dicticc@max-weller.de>
+ */
+
 package de.wikilab.dicticc;
 
 import android.app.Activity;
@@ -20,8 +39,6 @@ public class DownloadFrameActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		
 		
 		getWindow().requestFeature(Window.FEATURE_PROGRESS);
 		webview = new WebView(this);

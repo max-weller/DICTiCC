@@ -21,34 +21,53 @@ package de.wikilab.dicticc;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences.Editor;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.ClipboardManager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,35 +76,94 @@ public class SearchActivity extends Activity {
 	
 	final int REQ_DICTIONARY_SELECT = 1;
 	
-	String dictFile,dictTitle;
+	Dict dict;
+	
 	ProgressDialog progdialog;
+	
+	ArrayList<String> lastSearches = new ArrayList<String>();
 	
 	boolean dictSearchInAction = false;
 	
 	//Settings:
 	boolean hideKeyboardAfterSearch;
 	boolean enableLivesearch;
+	int maxResults = 400;
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(SearchActivity.this);
+
+        if (pref.getBoolean("show_changelog", true) == true) {
+        	MessageBox.showChangeLog(this);
+        }
+        
+        
+        if (pref.getBoolean("p_invert_colors", false) == true) {
+        	setTheme(R.style.Light);
+        } else {
+        	setTheme(R.style.Dark);
+        }
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(SearchActivity.this);
-        dictFile = pref.getString("dictFile", null);
-        dictTitle = pref.getString("dictTitle", null);
+        dict = new Dict(this, pref.getString("dictFile", null));
         
         updateTitleBar();
+        readMRU();
         
         final EditText searchbox = (EditText) findViewById(R.id.searchbox);
         final Button dictselectbutton = (Button) findViewById(R.id.dictselectbutton);
-        final ListView content = (ListView) findViewById(R.id.contentlist);
+        final ListView listview = (ListView) findViewById(R.id.contentlist);
         
-        DictListAdapter lista = new DictListAdapter(SearchActivity.this, 0, new String[][] {new String[] {"H", "Bitte einen Suchbegriff eingeben!"}});
-        lista.listHeaderId = R.layout.listitem_groupheader;
-        lista.listContentId = R.layout.listitem_translation;
-        content.setAdapter(lista);
+        listview.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView l, View v, int position, long id) {
+				ListAdapter la = ((ListView)l).getAdapter();
+				if (la instanceof GenericStringAdapter) {
+					final String data = (String)la.getItem(position);
+					if (data.startsWith("> ")) {
+						searchbox.setText(data.substring(2));
+						doSearch(true);
+					}
+				} else if (la instanceof DictListAdapter) {
+					final String[] data = (String[])la.getItem(position);
+					
+					final List<Dict> langs = Dict.searchForLanguage(SearchActivity.this, dict.toLang, null);
+					
+					String[] menu = new String[langs.size() + 1];
+					menu[0] = getString(R.string.copy_translation_to_clipboard);
+					for(int i = 1; i < menu.length; i++) menu[i] = String.format(getString(R.string.search_translation_in_language), langs.get(i - 1).toLang);
+					
+					Matcher m = Pattern.compile("<b>(.*)<\\/b>.*").matcher(data[1]);
+					if (!m.matches()) return;
+					final String translation= m.group(1).trim();
+					
+					new AlertDialog.Builder(SearchActivity.this)
+					.setIcon(android.R.drawable.ic_dialog_info)
+					.setTitle(translation)
+					.setItems(menu, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							switch(arg1) {
+							case 0:
+								ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+								cm.setText(translation);
+								break;
+							default:
+								dict = langs.get(arg1 - 1);
+								readMRU();
+								updateTitleBar();
+								searchbox.setText(translation);
+								doSearch(true);
+							}
+						}
+					})
+					.show();
+				}
+			}
+		});
         
         searchbox.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -94,7 +172,7 @@ public class SearchActivity extends Activity {
                         actionId == EditorInfo.IME_ACTION_DONE ||
                         event.getAction() == KeyEvent.ACTION_DOWN &&
                         event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                	doSearch();
+                	doSearch(true);
                 	return true;
                 } else {
                     return false;
@@ -102,26 +180,120 @@ public class SearchActivity extends Activity {
             }
         });
         
+        final Drawable deleteIcon = getResources().getDrawable(R.drawable.textbox_clear);
+        //deleteIcon.setBounds(0, 0, deleteIcon.getIntrinsicWidth(), deleteIcon.getIntrinsicHeight());
+        deleteIcon.setBounds(0, 0, 51, 30); // wtf??? die Zahlen sind empirisch ermittelt... ab right>=52 springt die höhe des editText
+        
         searchbox.addTextChangedListener(new TextWatcher() {
-			@Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			@Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+				searchbox.setCompoundDrawables(null, null, s.toString().equals("") ? null : deleteIcon, null);
+				//searchbox.setCompoundDrawablesWithIntrinsicBounds(null, null, s.toString().equals("") ? null : deleteIcon, null);
+				searchbox.setCompoundDrawablePadding(0);
+			}
 			@Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				if (enableLivesearch && s.length() > 1 && dictFile != null && dictSearchInAction == false) {
+				if (enableLivesearch && s.length() > 1 && dict.filePrefix != null && dictSearchInAction == false) {
 					DictionarySearcher ds = new DictionarySearcher();
 			    	ds.targetList = (ListView) findViewById(R.id.contentlist);
-			    	ds.execute(dictFile, s.toString());
+			    	ds.execute(dict.filePrefix, s.toString());
+				}
+				if (s.length() == 0) {
+					displayMRU();
 				}
 			}
 		});
-        
+
+        //searchbox.setCompoundDrawables(null, null, deleteIcon, null);
+        searchbox.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (searchbox.getCompoundDrawables()[2] == null) {
+                    return false;
+                }
+                if (event.getAction() != MotionEvent.ACTION_UP) {
+                    return false;
+                }
+                if (event.getX() > searchbox.getWidth() - searchbox.getPaddingRight() - deleteIcon.getIntrinsicWidth()) {
+                	searchbox.setText("");
+                    searchbox.setCompoundDrawables(null, null, null, null);
+                }
+                return false;
+            }
+        });
+
         dictselectbutton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				selectDictionary();
 			}
 		});
+        
+        ((Button) findViewById(R.id.dictswapbutton)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				final List<Dict> langs = Dict.searchForLanguage(SearchActivity.this, dict.toLang, dict.fromLang);
+	    		if(langs.size() > 0) {
+	    			dict = langs.get(0);
+					readMRU();
+					updateTitleBar();
+					searchbox.setText("");
+	    		} else {
+	    			MessageBox.alert(SearchActivity.this, getString(R.string.no_reverse_dict_found));
+	    		}
+			}
+		});
+        
+    }
+    
+    
+    private void addToMRU(String searchTerm) {
+    	int p = lastSearches.indexOf(searchTerm);
+    	if (p != -1) lastSearches.remove(p);
+    	if (lastSearches.size() > 8) lastSearches.remove(lastSearches.size() - 1);
+    	lastSearches.add(0, searchTerm);
+    	
+		try {
+			FileOutputStream fos1 = Dict.openForWrite(SearchActivity.this, dict.filePrefix+"_mru", false);
+			BufferedWriter mru = new BufferedWriter(new OutputStreamWriter(fos1));
+			for(String s : lastSearches) {
+				mru.write(s + "\n");
+			}
+			mru.close();
+		} catch (Exception e) {
+			Log.e("SearchActivity", "unable to write MRU list");
+			e.printStackTrace();
+		}
+    }
+    
+    private void displayMRU() {
+    	ArrayList<String> lines = new ArrayList<String>();
+		lines.add(getString(R.string.enter_term_helptext));
+    	
+		for(String s : lastSearches) lines.add("> " + s);
+		
+    	((ListView)findViewById(R.id.contentlist)).setAdapter(new GenericStringAdapter(SearchActivity.this, R.layout.listitem_plaintext, R.id.text, getLayoutInflater(), lines.toArray(new String[]{}), true));
+    }
+    
+    private void readMRU() {
+		try {
+			if (dict == null) return;
+			lastSearches.clear();
+			FileInputStream fos1 = Dict.openForRead(SearchActivity.this, dict.filePrefix+"_mru");
+			if (fos1 == null) return;
+			BufferedReader mru = new BufferedReader(new InputStreamReader(fos1));
+			String s;
+			s = mru.readLine();
+			while(s != null && !s.equals("")) {
+				lastSearches.add(s);
+				s = mru.readLine();
+			}
+			mru.close();
+		} catch (Exception e) {
+			Toast.makeText(SearchActivity.this, R.string.unable_to_access_sdcard, Toast.LENGTH_LONG).show();
+			e.printStackTrace();
+		}
     }
     
     @Override
@@ -131,13 +303,16 @@ public class SearchActivity extends Activity {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(SearchActivity.this);
         hideKeyboardAfterSearch = pref.getBoolean("behav_hide_keyboard_after_search", false);
         enableLivesearch = pref.getBoolean("behav_livesearch", false);
+        try { maxResults = Integer.valueOf(pref.getString("behav_maxresults", "400")); } catch(Exception e) {}
         
-        if (dictFile == null) {
+        if (dict.filePrefix == null) {
         	((EditText)findViewById(R.id.searchbox)).setEnabled(false);
-        	((ListView)findViewById(R.id.contentlist)).setAdapter(new GenericStringAdapter(SearchActivity.this, R.layout.listitem_dictionary, R.id.text, getLayoutInflater(), new String[]{getString(R.string.no_dictionary_selected_helptext)}, true));
+        	((ListView)findViewById(R.id.contentlist)).setAdapter(new GenericStringAdapter(SearchActivity.this, R.layout.listitem_plaintext, R.id.text, getLayoutInflater(), new String[]{getString(R.string.no_dictionary_selected_helptext)}, true));
         } else {
         	((EditText)findViewById(R.id.searchbox)).setEnabled(true);
-        	((ListView)findViewById(R.id.contentlist)).setAdapter(new GenericStringAdapter(SearchActivity.this, R.layout.listitem_dictionary, R.id.text, getLayoutInflater(), new String[]{getString(R.string.enter_term_helptext)}, true));
+        	//((ListView)findViewById(R.id.contentlist)).setAdapter(new GenericStringAdapter(SearchActivity.this, R.layout.listitem_plaintext, R.id.text, getLayoutInflater(), new String[]{getString(R.string.enter_term_helptext)}, true));
+        	readMRU();
+        	displayMRU();
         }
         
     }
@@ -151,26 +326,28 @@ public class SearchActivity extends Activity {
     	super.onRestoreInstanceState(savedInstanceState);
     	if (savedInstanceState != null) {
         	if (savedInstanceState.getBoolean("restartSearch", false) == true) {
-        		doSearch();
+        		doSearch(false);
         	}
         }
     }
     
-
-    void doSearch() {
+    void doSearch(boolean storeInMRU) {
     	if (dictSearchInAction) return;
     	
         final EditText searchbox = (EditText) findViewById(R.id.searchbox);
-    	if (dictFile == null) {
-    		Toast.makeText(SearchActivity.this, "Bitte ein Wörterbuch auswählen!", Toast.LENGTH_SHORT).show();
+    	
+    	if (dict.filePrefix == null) {
+    		Toast.makeText(SearchActivity.this, R.string.errmes_no_dictionary_selected, Toast.LENGTH_SHORT).show();
     		return;
     	}
     	
     	String searchTerm = searchbox.getText().toString();
     	if (searchTerm.length() < 2) {
-    		Toast.makeText(SearchActivity.this, "Bitte einen Suchbegriff eingeben!", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(SearchActivity.this, R.string.errmes_no_term_typed, Toast.LENGTH_SHORT).show();
     		return;
     	}
+    	
+    	if (storeInMRU) addToMRU(searchTerm);
     	
     	if (hideKeyboardAfterSearch) {
 	    	searchbox.clearFocus();
@@ -180,17 +357,24 @@ public class SearchActivity extends Activity {
     	//progdialog = ProgressDialog.show(SearchActivity.this, null, "Wörterbuch wird durchsucht...", true);
     	
     	DictionarySearcher ds = new DictionarySearcher();
+    	ds.isLiveSearch = false;
     	ds.targetList = (ListView) findViewById(R.id.contentlist);
-    	ds.execute(dictFile, searchTerm);
+    	ds.execute(dict.filePrefix, searchTerm);
         return;
     }
     
 
     void updateTitleBar() {
-    	if (dictTitle != null) {
-    		setTitle(getString(R.string.app_name) + " - " + dictTitle);
+    	if (dict.title != null) {
+    		//setTitle(getString(R.string.app_name) + " - " + dict.title + "    "+dict.fromLang+"->"+dict.toLang);
+    		((Button)findViewById(R.id.dictselectbutton)).setText(dict.fromLang+"->"+dict.toLang);
+    		final List<Dict> langs = Dict.searchForLanguage(SearchActivity.this, dict.toLang, dict.fromLang);
+    		((Button)findViewById(R.id.dictswapbutton)).setEnabled(langs.size() > 0);
     	} else {
-    		setTitle(getString(R.string.app_name) + " - kein Wörterbuch gewählt");
+    		//setTitle(getString(R.string.app_name) + " - " + getString(R.string.no_dictionary_selected));
+    		((Button)findViewById(R.id.dictselectbutton)).setText(R.string.dictionary);
+    		((Button)findViewById(R.id.dictswapbutton)).setEnabled(false);
+    		
     	}
     }
     
@@ -215,8 +399,7 @@ public class SearchActivity extends Activity {
         case R.id.dictselectbutton:
             selectDictionary();
             return true;
-        case R.id.import_dictionary:
-            
+        case R.id.import_dictionary:       
             return true;
         case R.id.settings:
         	startActivity(new Intent(SearchActivity.this, PrefsActivity.class));
@@ -224,6 +407,9 @@ public class SearchActivity extends Activity {
         case R.id.help:
             startActivity(new Intent(SearchActivity.this, AboutScreenActivity.class));
             return true;
+        case R.id.facebook:
+        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/pages/Offline-Translator/105989296161901")));
+        	return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -236,13 +422,15 @@ public class SearchActivity extends Activity {
     	switch(requestCode) {
     	case REQ_DICTIONARY_SELECT:
     		if (resultCode == RESULT_OK) {
-    			dictFile = data.getStringExtra(Intent.EXTRA_TEXT);
-    			dictTitle = data.getStringExtra("title");
+    			dict = new Dict(this, data.getStringExtra(Intent.EXTRA_TEXT));
+    	        
     			SharedPreferences.Editor ed = PreferenceManager.getDefaultSharedPreferences(SearchActivity.this).edit();
-    			ed.putString("dictFile", dictFile);
-    			ed.putString("dictTitle", dictTitle);
+    			ed.putString("dictFile", dict.filePrefix);
+    			ed.putString("dictTitle", dict.title);
     			ed.commit();
     			updateTitleBar();
+    			readMRU();
+    			displayMRU();
     		}
     		break;
     	}
@@ -253,13 +441,14 @@ public class SearchActivity extends Activity {
     	private class ResultSet { long count,anfang,ende; boolean success; String error; String[][] data; }
     	
     	ListView targetList;
+    	boolean isLiveSearch = true;
     	
 		@Override
 		protected ResultSet doInBackground(String... params) {
 			dictSearchInAction = true;
 			ResultSet result = new ResultSet();
 			result.anfang = android.os.Process.getElapsedCpuTime();
-			String dictFilePrefix = params[0], searchTerm = params[1].toLowerCase();
+			String dictFilePrefix = params[0], searchTerm =Dict.deAccent(params[1].toLowerCase());
 			
 			ArrayList<String[]> lines = new ArrayList<String[]>();
 			
@@ -271,7 +460,10 @@ public class SearchActivity extends Activity {
 				if (Character.isLetter(ch0)) ch0 = Character.toLowerCase(ch0); else ch0 = '$';
 				if (Character.isLetter(ch1)) ch1 = Character.toLowerCase(ch1); else ch1 = '$';
 				
-				fis = SearchActivity.this.openFileInput(dictFilePrefix+"_"+ch0+ch1);
+				fis = Dict.openForRead(SearchActivity.this, dictFilePrefix+"_"+ch0+ch1);
+				if (fis == null) {  // File not found!
+					throw new FileNotFoundException("Either no results were found or the import was interrupted!");
+				}
 				
 				BufferedReader read = new BufferedReader(new InputStreamReader(fis));
 				
@@ -289,12 +481,17 @@ public class SearchActivity extends Activity {
 					lines.add(new String[]{"T", "<b>" + cols[Dict.DEF] + "</b> <i>" + cols[Dict.DEF_GENDER] + " " + cols[Dict.DEF_EXTRA] + "</i>", cols[Dict.TYPE], cols[Dict.WORD_GENDER] + " " + cols[Dict.WORD_EXTRA]});
 					
 					result.count++;
+					if (result.count >= maxResults) break;
 				}
-
-
+				
 				read.close();
 				result.success = true;
 				result.data = lines.toArray(new String[][]{});
+				
+			} catch (FileNotFoundException e) {
+				result.success = true;
+				result.data = new String[][]{};
+				
 			} catch (Exception e) {
 				result.success = false;
 				result.error = e.toString();
@@ -310,13 +507,13 @@ public class SearchActivity extends Activity {
 		protected void onPostExecute(ResultSet result) {
 			//progdialog.dismiss();
 			if (result.success) {
-		        Toast.makeText(SearchActivity.this, String.format(getString(R.string.result_count_toast), result.count, (float)(result.ende - result.anfang)/1000), Toast.LENGTH_SHORT).show();
+		        if (!isLiveSearch) Toast.makeText(SearchActivity.this, String.format(getString(R.string.result_count_toast), result.count, (float)(result.ende - result.anfang)/1000), Toast.LENGTH_SHORT).show();
 		        DictListAdapter dla = new DictListAdapter(SearchActivity.this, 0, result.data);
 		        dla.listHeaderId = R.layout.listitem_groupheader;
 		        dla.listContentId = R.layout.listitem_translation;
 		        targetList.setAdapter(dla);
 			} else {
-				MessageBox.alert(SearchActivity.this, result.error, "Fehler!");
+				MessageBox.alert(SearchActivity.this, result.error, getString(R.string.error));
 			}
 			dictSearchInAction = false;
 			super.onPostExecute(result);

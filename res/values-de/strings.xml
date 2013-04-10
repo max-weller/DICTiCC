@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="hello">Hello World!</string>
+    <string name="close">Schließen</string>
+    <string name="error">Fehler</string>
+    <string name="app_name">Offline Translator</string>
+    <string name="select_dictionary">Wörterbuch auswählen...</string>
+    <string name="dictionary">Wörterbuch</string>
+    <string name="enter_word">Wort eingeben...</string>
+    <string name="import_dictionary">Wörterbuch importieren</string>
+    <string name="import_">Importieren</string>
+    <string name="select">Auswählen</string>
+    <string name="settings">Optionen</string>
+    <string name="help">Hilfe</string>
+    <string name="no_dictionary_selected">kein Wörterbuch gewählt</string>
+    <string name="errmes_no_dictionary_selected">Bitte ein Wörterbuch auswählen!</string>
+    <string name="errmes_no_term_typed">Bitte einen Suchbegriff eingeben!</string>
+    <string name="search_translation_in_language">Suche nach %1$s</string>
+    <string name="copy_translation_to_clipboard">Übersetzung kopieren</string>
+    <string name="importing_dictionary_long">Wörterbuch wird importiert\nEile mit Weile ...\n</string>
+    <string name="download_dictionaries">Wörterbücher herunterladen...</string>
+    <string name="no_dictionary_selected_helptext">&lt;p&gt;&lt;b&gt;Kein Wörterbuch ausgewählt.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Drücke den Button "Wörterbuch" rechts oben. Dort kannst du ein Wörterbuch auswählen, falls du schon eines importiert hast.&lt;/p&gt;&lt;p&gt;Ansonsten folge dort den Anweisungen, um Wörterbücher herunterzuladen und zu importieren.&lt;/p&gt;</string>
+    <string name="no_dictionaries_helptext">&lt;p&gt;&lt;b&gt;&lt;font color="#ffff66"&gt;Du hast noch keine Wörterbücher geladen.&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Drücke die Menütaste, um ein Wörterbuch von der SD-Karte zu importieren, oder um weitere Informationen zum Download von Wörterbüchern aus dem Internet zu erhalten.&lt;/p&gt;</string>
+    <string name="enter_term_helptext">&lt;p&gt;&lt;b&gt;Bitte einen Suchbegriff eingeben.&lt;/b&gt;&lt;/p&gt;Letzte Suchbegriffe:</string>
+    <string formatted="false" name="result_count_toast">%d Ergebnisse in %.2g sek</string>
+    <string name="import_all_dictionaries">Alle Wörterbücher in diesem Ordner importieren ...</string>
+    <string name="aboutscreen_heading">&lt;b&gt;&lt;font size=8 color=#aaaaff&gt;DICT&lt;/font&gt;&lt;font size=6 color=#aaaaaa&gt;i&lt;/font&gt;&lt;font size=8 color=#aaaaff&gt;CC&lt;/font&gt;&lt;/b&gt;
+&lt;br&gt;Offline Translator for Android</string>
+    <string name="aboutscreen_helptext">
+    &lt;p&gt;Website und Dokumentation zur App:&lt;/p&gt;
+    &lt;p&gt;&lt;a href="http://dicticc.wikilab.de"&gt;http://dicticc.wikilab.de&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;b&gt;Copyright-Hinweise:&lt;/b&gt;&lt;/p&gt;
+    &lt;p&gt;Copyright (c) 2011 by &lt;a href="http://www.max-weller.de"&gt;Max Weller&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;Die Wörterbuch-Datenbanken von &lt;b&gt;dict.cc&lt;/b&gt; können unter folgendem Link angefordert werden. Dort sind auch die Nutzungsbedingungen nachzulesen.&lt;/p&gt;
+    &lt;p&gt;&lt;a href="http://www1.dict.cc/translation_file_request.php"&gt;http://www1.dict.cc/translation_file_request.php&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;DICTiCC is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.&lt;/p&gt;
+		&lt;p&gt;DICTiCC is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.&lt;/p&gt;
+		&lt;p&gt;You should have received a copy of the GNU General Public License
+		along with DICTiCC.  If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;
+		</string>
+    <string name="behavior">Verhalten</string>
+    <string name="hide_keyboard_after_search">Tastatur ausblenden</string>
+    <string name="hide_keyboard_after_search_desc">nach dem Suchen</string>
+    <string name="dictionary_download_url">http://www1.dict.cc/translation_file_request.php</string>
+    <string name="download_info_dlg_title">Hinweise</string>
+    <string name="download_info_dlg_content">- Bitte die Nutzungsbedingungen lesen.\n- Bei Version darf NICHT \'Elcombri\' stehen, sondern \'tab delimited\'.\n- Wenn möglich eine Mail-Adresse verwenden, auf die du von diesem Gerät zugreifen kannst.\n- Weitere Infos in der Hilfe.</string>
+    <string name="download_info_dlg_okbutton">Gelesen und verstanden!</string>
+    <string name="behav_livesearch">Live-Suche</string>
+    <string name="behav_livesearch_desc">während dem Eintippen suchen</string>
+    <string-array name="dict_location_captions">
+        <item>SD-Karte</item><item>Anwendungsspeicher</item>
+    </string-array>
+    <string-array name="dict_location_values">
+        <item>sdcard</item><item>app</item>
+    </string-array>
+    <string-array name="dict_context_menu">
+        <item>Entfernen</item><item>Umbenennen</item><item>Details</item>
+    </string-array>
+    <string name="errmes_cant_show_file_list">Dateiliste kann nicht angezeigt werden.\nAktueller Ordner:\n%1$s\nFehler:\n%2$s</string>
+    <string name="question_import_this_file_as_dictionary">Diese Datei als Wörterbuch importieren?</string>
+    <string name="count_words_imported">%d Wörter importiert</string>
+    <string name="message_dictionary_import_successful">Wörterbuch "%1$s" erfolgreich importiert. Es enthält %2$d Wörter. Dies dauerte %3$d ms.</string>
+    <string name="import_another_dictionary">Weitere importieren</string>
+    <string name="errmes_dictionary_import_failed">Aufgrund eines Fehlers wurde der Import nach %1$d Wörtern abgebrochen. Eventuell ist die Datei fehlerhaft. Dies dauerte %2$d ms. Wenn dieser Fehler bestehen bleibt, versuche den Import am PC (Infos unter dicticc.wikilab.de/pc).</string>
+    <string name="errmes_dictionary_elcombri">Dateien im "elcombri"-Format können nicht gelesen werden. Bitte im "tab-delimited"-Format herunterladen!</string>
+    <string name="dictionary_deleting">Löschen ...</string>
+    <string name="message_dictionary_deleted_title">Wörterbuch gelöscht</string>
+    <string name="message_dictionary_deleted">Zu löschen: %1$d\nErfolgreich: %2$d</string>
+    <string name="dictionary_rename">Wörterbuch umbenennen</string>
+    <string name="errmes_dictionary_rename_failed">Umbenennen nicht möglich:</string>
+    <string name="support">Support</string>
+    <string name="p_support_facebook">Facebook-Seite besuchen</string>
+    <string name="p_support_rate">Im Market bewerten</string>
+    <string name="p_support_rate_desc">Erzähle anderen über die App</string>
+    <string name="p_support_homepage">Homepage besuchen</string>
+    <string name="p_support_homepage_desc">dicticc.wikilab.de</string>
+    <string name="p_location">Speicherort</string>
+    <string name="behav_maxresults">Maximale Anzahl Ergebnisse</string>
+    <string name="behav_maxresults_details">Wieviele Ergebnisse sollen in der Trefferliste maximal gezeigt werden?</string>
+    <string name="location_path_desc">Wo sollen die importierten Wörterbücher gespeichert werden?</string>
+    <string name="invert_colors">Farben umkehren</string>
+    <string name="invert_colors_on">Schwarze Schrift auf weißem Grund</string>
+    <string name="invert_colors_off">Weiße Schrift auf schwarzem Grund</string>
+    <string name="no_reverse_dict_found">Kein umgekehrtes Wörterbuch für dieses Sprachpaar gefunden. Bitte lade es herunter und importiere es.</string>
+    <string name="restart_after_setting_change">Bitte starte die App neu um die Änderung wirksam zu machen.</string>
+    <string name="unable_to_access_sdcard">Kein Zugriff auf die SD-Karte möglich. Bitte Verbindung mit dem PC trennen.</string>
+    <string name="dict_list_sort_title">Wörterbuchliste sortieren</string>
+    <string name="dict_list_sort_on">Liste wird alphabetisch sortiert</string>
+    <string name="dict_list_sort_off">Unsortierte Liste</string>
+    <string name="report_error">Fehlerbericht</string>
+</resources>

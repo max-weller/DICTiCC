@@ -3,10 +3,26 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-
+		
+		<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@android:drawable/title_bar">
+			<TextView android:text="Offline Translator"
+			android:layout_width="wrap_content" android:layout_height="wrap_content" 
+			style="@android:style/TextAppearance.WindowTitle"  android:layout_centerVertical="true"/>
+			
+			<Button android:id="@+id/dictselectbutton" android:text="@string/dictionary"
+			        android:layout_width="wrap_content" android:layout_height="18pt"
+			        android:layout_toLeftOf="@+id/dictswapbutton" android:layout_centerVertical="true"  />
+			
+			<Button android:id="@+id/dictswapbutton" android:text="&lt;-&gt;"
+			        android:layout_width="wrap_content" android:layout_height="18pt"
+			        android:layout_alignParentRight="true" android:layout_centerVertical="true"  />
+		</RelativeLayout>
+		
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-			<EditText android:id="@+id/searchbox" android:hint="@string/enter_word" android:singleLine="true" android:imeOptions="actionSearch|flagNoExtractUi" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" />
-			<Button android:id="@+id/dictselectbutton" android:text="@string/dictionary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0" />
+			<EditText android:id="@+id/searchbox" android:hint="@string/enter_word"
+								android:singleLine="true" android:imeOptions="actionSearch|flagNoExtractUi"
+								android:layout_width="fill_parent" android:layout_height="wrap_content" />
+			
 		</LinearLayout>
 		
 		<ListView android:id="@+id/contentlist" android:layout_width="fill_parent" android:layout_height="wrap_content"></ListView>

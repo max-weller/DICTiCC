@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="!!! D E B U G !!!" android:key="c_debug">
-        <Preference android:title="show debug file manager" android:key="debug_fileman"></Preference>
-    </PreferenceCategory>
     <PreferenceCategory android:title="@string/behavior" android:key="c_behav">
         <CheckBoxPreference android:key="behav_hide_keyboard_after_search" android:title="@string/hide_keyboard_after_search" android:summary="@string/hide_keyboard_after_search_desc" android:defaultValue="false"></CheckBoxPreference>
         <CheckBoxPreference android:key="behav_livesearch" android:title="@string/behav_livesearch" android:summary="@string/behav_livesearch_desc" android:defaultValue="false"></CheckBoxPreference>
+        <EditTextPreference android:dialogMessage="@string/behav_maxresults_details" android:key="behav_maxresults" android:defaultValue="400" android:title="@string/behav_maxresults" android:dialogTitle="@string/behav_maxresults" android:inputType="number"></EditTextPreference>
+        <CheckBoxPreference android:defaultValue="true" android:title="@string/dict_list_sort_title" android:key="behav_sort_dict_list" android:summaryOff=""></CheckBoxPreference>
     </PreferenceCategory>
+    <PreferenceCategory android:key="c_location" android:title="@string/p_location">
+        <ListPreference android:key="location_path" android:entries="@array/dict_location_captions" android:entryValues="@array/dict_location_values" android:title="@string/dictionary" android:defaultValue="sdcard" android:summary="@string/location_path_desc"></ListPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:key="c_design" android:title="Design">
+        <CheckBoxPreference android:title="@string/invert_colors" android:key="p_invert_colors" android:summaryOff="@string/invert_colors_off" android:summaryOn="@string/invert_colors_on"></CheckBoxPreference>
+    </PreferenceCategory><PreferenceCategory android:title="@string/support" android:key="c_support">
+        <Preference android:title="@string/p_support_facebook" android:key="p_support_facebook"></Preference>
+        <Preference android:title="@string/p_support_rate" android:summary="@string/p_support_rate_desc" android:key="p_support_rate"></Preference>
+        <Preference android:title="@string/p_support_homepage" android:summary="@string/p_support_homepage_desc" android:key="p_support_homepage"></Preference><Preference android:key="p_show_changelog" android:title="Show Changelog"></Preference>
+        
+    </PreferenceCategory><PreferenceCategory android:key="c_debug" android:title="Debug options">
+        <Preference android:key="debug_fileman" android:summary="(only use these options if told to do so)" android:title="debug file manager"></Preference>
+    </PreferenceCategory>
+    
+    
 </PreferenceScreen>

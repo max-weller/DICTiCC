@@ -22,25 +22,21 @@ package de.wikilab.dicticc;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
+import java.security.KeyStore.LoadStoreParameter;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.ContentValues;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnClickListener;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -48,57 +44,68 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.EditText;
+import android.widget.ListView;
 
 public class DictionarySelectActivity extends ListActivity {
 
 	final int RC_IMPORT_DONE = 1;
 	
 	boolean emptyList;
-	String[] file_list;
-	String[] file_prefix_list;
+	ArrayList<Dictfileitem> itemlist;
 	
-    public String getDictDirectory() {
-    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(DictionarySelectActivity.this);
-		return prefs.getString("dict_directory", "/mnt/sdcard/dictionaries/");
-    }
+	private CheckedListAdapter la;
+	
+	public static class Dictfileitem implements Comparable<Dictfileitem> {
+		public String title,file_prefix; boolean selected;
+		@Override
+		public String toString() {
+			return title;
+		}
+		@Override
+		public int compareTo(Dictfileitem arg0) {
+			return title.compareTo(arg0.title);
+		}
+	}
 	
     public void fillList() {
-    	
-    	File[] subfiles = this.getFilesDir().listFiles();
-        ArrayList<String> files = new ArrayList<String>();
-        ArrayList<String> file_prefixes = new ArrayList<String>();
+    	SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(DictionarySelectActivity.this);
+        String currentDictFile = pref.getString("dictFile", null);
+        boolean sortList = pref.getBoolean("behav_sort_dict_list", true);
+        
+    	File[] subfiles = new File(Dict.getPath(DictionarySelectActivity.this)).listFiles();
+    	itemlist = new ArrayList<Dictfileitem>();
         for(int i = 0; i < subfiles.length; i++) {
         	String name = subfiles[i].getName();
         	if (name.endsWith("_info")) {
-        		file_prefixes.add(name.substring(0, name.length()-5));
+        		Dictfileitem item = new Dictfileitem();
+        		item.file_prefix = name.substring(0, name.length()-5);
+        		
+        		if (item.file_prefix.equals(currentDictFile)) item.selected = true;
+        		
         		try {
-	        		BufferedReader bfr = new BufferedReader(new InputStreamReader(openFileInput(name)));
-	        		String firstLine = bfr.readLine();
+	        		BufferedReader bfr = new BufferedReader(new InputStreamReader(Dict.openForRead(DictionarySelectActivity.this, name)));
+	        		item.title = bfr.readLine();
 	        		bfr.close();
-	        		files.add(firstLine);
-        		} catch (Exception ex) {
-        			files.add(name);
-        		}
+        		} catch (Exception ex) {}
+        		if (item.title == null) item.title = name;
+        		itemlist.add(item);
         	}
         }
         
-
-        if (files.size() == 0) {
+        
+        if (itemlist.size() == 0) {
         	emptyList = true;
-        	file_list = null;
-        	file_prefix_list = null;
-        	setListAdapter(new GenericStringAdapter(DictionarySelectActivity.this, R.layout.listitem_dictionary, R.id.text, getLayoutInflater(), new String[]{getString(R.string.no_dictionaries_helptext)}, true));
+        	setListAdapter(new GenericStringAdapter(DictionarySelectActivity.this, R.layout.listitem_plaintext, R.id.text, getLayoutInflater(), new String[]{getString(R.string.no_dictionaries_helptext)}, true));
         } else {
         	emptyList = false;
-        	file_list = files.toArray(new String[0]);
-        	file_prefix_list = file_prefixes.toArray(new String[0]);
+        	
+        	if (sortList) Collections.sort(itemlist);
 	        
-	        setListAdapter(new GenericStringAdapter(DictionarySelectActivity.this, R.layout.listitem_dictionary, R.id.text, getLayoutInflater(), file_list, false));
-
+        	la = new CheckedListAdapter(DictionarySelectActivity.this, R.layout.listitem_dictionary, android.R.id.content, R.id.selector, getLayoutInflater(), itemlist, false);
+        	setListAdapter(la);
         }
     }
     
@@ -110,15 +117,17 @@ public class DictionarySelectActivity extends ListActivity {
         
         ListView lv = getListView();
         lv.setTextFilterEnabled(true);
-
+        //lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        
         lv.setOnItemClickListener(new OnItemClickListener() {
           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
           	if (emptyList) return;
           	
-        	String data = file_prefix_list[position];
+          	Dictfileitem item = (Dictfileitem)itemlist.get(position);
+        	String data = item.file_prefix;
           	Intent resultIntent = new Intent();
           	resultIntent.putExtra(Intent.EXTRA_TEXT, data);
-          	resultIntent.putExtra("title", file_list[position]);
+          	resultIntent.putExtra("title", item.title);
           	//resultIntent.putExtra(Intent.EXTRA_UID, file_id_list[position]);
           	setResult(RESULT_OK, resultIntent);
           	finish();
@@ -130,25 +139,24 @@ public class DictionarySelectActivity extends ListActivity {
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				if (emptyList) return false;
 
-				final String file_prefix = file_prefix_list[position];
-				final String file_title = file_list[position];
+	          	final Dictfileitem item = (Dictfileitem)itemlist.get(position);
 				new AlertDialog.Builder(DictionarySelectActivity.this)
-				.setTitle("Wörterbuch")
-				.setItems(new CharSequence[] {"Entfernen", "Umbenennen", "Details"}, new OnClickListener() {
+				.setTitle(R.string.dictionary)
+				.setItems(R.array.dict_context_menu, new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						switch(which) {
 						case 0:
-							
+							removeDictionary(item.file_prefix);
 							break;
 						case 1:
-							renameDictionaryDialog(file_prefix, file_title);
+							renameDictionaryDialog(item.file_prefix, item.title);
 							break;
 						case 2:
 							try {
 								new AlertDialog.Builder(DictionarySelectActivity.this)
-								.setMessage(Dict.readFile(new File(getFilesDir(), file_prefix + "_info").getAbsolutePath()))
-								.setPositiveButton("Schließen", new DialogInterface.OnClickListener() {
+								.setMessage(Dict.readFile(new File(Dict.getPath(DictionarySelectActivity.this), item.file_prefix + "_info").getAbsolutePath()))
+								.setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
 										dialog.dismiss();
@@ -160,7 +168,7 @@ public class DictionarySelectActivity extends ListActivity {
 								e.printStackTrace();
 								new AlertDialog.Builder(DictionarySelectActivity.this)
 								.setMessage("IO Exception:\n\n"+e.toString())
-								.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+								.setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
 										dialog.dismiss();
@@ -178,6 +186,35 @@ public class DictionarySelectActivity extends ListActivity {
 		});
 
     }
+    
+    public void removeDictionary(String filePrefix) {
+    	ProgressDialog pd = new ProgressDialog(DictionarySelectActivity.this);
+    	pd.setMessage(getString(R.string.dictionary_deleting));
+    	pd.show();
+    	
+    	int counter1=0,counter2=0;
+    	File[] subfiles = new File(Dict.getPath(DictionarySelectActivity.this)).listFiles();
+        for(int i = 0, j = 0; i < subfiles.length; i++) {
+        	String name = subfiles[i].getName();
+        	if (name.startsWith(filePrefix)) {
+        		counter2++;
+        		if (subfiles[i].delete()) counter1++;
+        	}
+        }
+        
+        pd.dismiss();
+        new AlertDialog.Builder(DictionarySelectActivity.this)
+        .setTitle(R.string.message_dictionary_deleted_title)
+        .setMessage(String.format(getString(R.string.message_dictionary_deleted_title), counter1, counter2))
+        .setPositiveButton("OK", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				arg0.dismiss();
+				fillList();
+			}
+		})
+        .show();
+    }
 
 
     public void renameDictionaryDialog(String _filePrefix, String oldTitle) {
@@ -185,9 +222,9 @@ public class DictionarySelectActivity extends ListActivity {
     	final EditText txt = new EditText(DictionarySelectActivity.this);
     	txt.setText(oldTitle);
     	new AlertDialog.Builder(DictionarySelectActivity.this)
-		.setTitle("Wörterbuch umbenennen")
+		.setTitle(R.string.dictionary_rename)
 		.setView(txt)
-		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				renameDictionary(filePrefix, txt.getText().toString());
@@ -200,9 +237,9 @@ public class DictionarySelectActivity extends ListActivity {
     
     void renameDictionary(String filePrefix, String newTitle) {
     	try {
-	    	String fileContent = Dict.readFile(new File(getFilesDir(), filePrefix+"_info").getAbsolutePath());
+	    	String fileContent = Dict.readFile(new File(Dict.getPath(DictionarySelectActivity.this), filePrefix+"_info").getAbsolutePath());
 	    	
-	    	FileOutputStream fos1 = openFileOutput(filePrefix+"_info",MODE_WORLD_READABLE);
+	    	FileOutputStream fos1 = Dict.openForWrite(DictionarySelectActivity.this, filePrefix+"_info", false);
 			BufferedWriter writeInfo = new BufferedWriter(new OutputStreamWriter(fos1));
 			
 			int pos = fileContent.indexOf('\n');
@@ -214,7 +251,7 @@ public class DictionarySelectActivity extends ListActivity {
 			}
 			writeInfo.close();
     	} catch (Exception e) {
-    		MessageBox.alert(DictionarySelectActivity.this, "Umbenennen nicht möglich:\n"+e.getMessage());
+    		MessageBox.alert(DictionarySelectActivity.this, getString(R.string.errmes_dictionary_rename_failed) + "\n" + e.getMessage());
     	}
     }
     

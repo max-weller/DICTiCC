@@ -82,7 +82,7 @@ public class DebugActivity extends ListActivity {
         for(int i = 0; i < subfiles.length; i++) file_list[i+1] = (subfiles[i].isDirectory() ? "/" : "") + subfiles[i].getName();
         Arrays.sort(file_list, String.CASE_INSENSITIVE_ORDER);
         
-        setListAdapter(new GenericStringAdapter(DebugActivity.this, R.layout.listitem_dictionary, R.id.text, getLayoutInflater(), file_list, false));
+        setListAdapter(new GenericStringAdapter(DebugActivity.this, R.layout.listitem_plaintext, R.id.text, getLayoutInflater(), file_list, false));
     }
 
 
@@ -124,7 +124,7 @@ public class DebugActivity extends ListActivity {
     		try {
 				new AlertDialog.Builder(this)
 				.setMessage(Dict.readFile(f.getAbsolutePath()))
-				.setPositiveButton("Schließen", new DialogInterface.OnClickListener() {
+				.setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
@@ -136,7 +136,7 @@ public class DebugActivity extends ListActivity {
 				e.printStackTrace();
 				new AlertDialog.Builder(this)
 				.setMessage("IO Exception:\n\n"+e.toString())
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+		<!-- dark -->
+    <style name="group_header_d">
+    <item name="android:textColor">#aaf</item>
+    <item name="android:textSize">11pt</item>
+    <item name="android:textStyle">bold</item>
+    </style>
+    <style name="translation_left_d">
+    <item name="android:textColor">#ff0</item>
+    </style>
+    <style name="translation_right_d">
+    </style>
+    
+    <!-- light -->
+    <style name="group_header_l">
+    <item name="android:textColor">#006</item>
+    <item name="android:textSize">12pt</item>
+    <item name="android:textStyle">bold</item>
+    </style>
+    <style name="translation_left_l">
+    <item name="android:textColor">#440</item>
+    <item name="android:textSize">9pt</item>
+    </style>
+    <style name="translation_right_l">
+    </style>
+</resources>
