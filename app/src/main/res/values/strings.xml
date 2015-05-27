@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World!</string>
+    <string name="close">Close</string>
+    <string name="error">Error</string>
+    <string name="app_name">Offline Translator</string>
+    <string name="select_dictionary">Select a dictionary...</string>
+    <string name="dictionary">dictionary</string>
+    <string name="enter_word">Touch and type ...</string>
+    <string name="import_dictionary">Import dictionary</string>
+    <string name="import_">Import</string>
+    <string name="select">Select</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="no_dictionary_selected">no dictionary selected</string>
+    <string name="errmes_no_dictionary_selected">Please select a dictionary!</string>
+    <string name="errmes_no_term_typed">Please enter a search term!</string>
+    <string name="search_translation_in_language">Translate to %1$s</string>
+    <string name="copy_translation_to_clipboard">Copy to clipboard</string>
+    <string name="importing_dictionary_long">Importing dictionary, please wait...\n</string>
+    <string name="download_dictionaries">Download dictionaries...</string>
+    <string name="no_dictionary_selected_helptext">&lt;p&gt;&lt;b&gt;No dictionary selected.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Touch the button "Dictionary" at the top right. There you can select a dictionary if you have already imported one.&lt;/p&gt;&lt;p&gt;Otherwise you can download and import dictionaries there.&lt;/p&gt;</string>
+    <string name="no_dictionaries_helptext">&lt;p&gt;&lt;b&gt;&lt;font color="#ffff66"&gt;You haven\'t imported any dictionaries.&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Push the menu button, to import a dictionary from SD card and to learn how to download dictionaries from the internet.&lt;/p&gt;</string>
+    <string name="enter_term_helptext">&lt;p&gt;&lt;b&gt;Please enter a search term.&lt;/b&gt;&lt;/p&gt;Last terms:</string>
+    <string formatted="false" name="result_count_toast">%d results in %.2g sec</string>
+    <string name="import_all_dictionaries">Import all dictionaries from this folder ...</string>
+    <string name="aboutscreen_heading">&lt;b&gt;&lt;font size=8 color=#aaaaff&gt;DICT&lt;/font&gt;&lt;font size=6 color=#aaaaaa&gt;i&lt;/font&gt;&lt;font size=8 color=#aaaaff&gt;CC&lt;/font&gt;&lt;/b&gt;
+&lt;br&gt;Offline Translator for Android</string>
+    <string name="aboutscreen_helptext">
+    &lt;p&gt;Website, help and documentation:&lt;/p&gt;
+    &lt;p&gt;&lt;a href="http://dicticc.wiki-lab.net"&gt;http://dicticc.wiki-lab.net&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;b&gt;Copyright notice:&lt;/b&gt;&lt;/p&gt;
+    &lt;p&gt;Copyright (c) 2011 by &lt;a href="http://www.max-weller.de"&gt;Max Weller&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;You can download the dictionaries from &lt;b&gt;dict.cc&lt;/b&gt; from the following link. There you can read the terms of use for the dictionaries.&lt;/p&gt;
+    &lt;p&gt;&lt;a href="http://www1.dict.cc/translation_file_request.php"&gt;http://www1.dict.cc/translation_file_request.php&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;DICTiCC is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.&lt;/p&gt;
+		&lt;p&gt;DICTiCC is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.&lt;/p&gt;
+		&lt;p&gt;You should have received a copy of the GNU General Public License
+		along with DICTiCC.  If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;
+		</string>
+    <string name="behavior">Behavior</string>
+    <string name="hide_keyboard_after_search">Hide keyboard</string>
+    <string name="hide_keyboard_after_search_desc">after touching the search button</string>
+    <string name="dictionary_download_url">http://www1.dict.cc/translation_file_request.php</string>
+    <string name="download_info_dlg_title">Important, please read:</string>
+    <string name="download_info_dlg_content">- Please read the terms of use.\n- Version \'Elcombri\' is WRONG, version \'tab delimited\' is RIGHT.\n- Use a mail address you can access from this device, if possible.\n- More information in the help (dicticc.wiki-lab.net).</string>
+    <string name="download_info_dlg_okbutton">Read and understood!</string>
+    <string name="behav_livesearch">Live search</string>
+    <string name="behav_livesearch_desc">start search while typing</string>
+    <string-array name="dict_location_captions">
+        <item>SD card</item><item>internal application storage</item>
+    </string-array>
+    <string-array name="dict_location_values">
+        <item>sdcard</item><item>app</item>
+    </string-array>
+    <string-array name="dict_context_menu">
+        <item>delete</item><item>rename</item><item>details</item>
+    </string-array>
+    <string name="errmes_cant_show_file_list">Unable to fetch directory contents.\nCurrent directory:\n%1$s\nException message:\n%2$s</string>
+    <string name="question_import_this_file_as_dictionary">Import this file as a dictionary?</string>
+    <string name="count_words_imported">Imported %d word pairs</string>
+    <string name="message_dictionary_import_successful">Successfully imported dictionary "%1$s" which contains %2$d words. This took %3$d ms.</string>
+    <string name="import_another_dictionary">Import another one</string>
+    <string name="errmes_dictionary_import_failed">The import was cancelled due to an error after %1$d words. The file may be broken. This took %2$d ms. If this problem persists, try the import on your PC (See dicticc.wiki-lab.net/pc)</string>
+    <string name="errmes_dictionary_elcombri">Version \'Elcombri\' is WRONG, version \'tab delimited\' is RIGHT. Please re-download in correct format.</string>
+    <string name="dictionary_deleting">Deleting ...</string>
+    <string name="message_dictionary_deleted_title">Dictionary deleted successfully.</string>
+    <string name="message_dictionary_deleted">%1$d files to delete,\nsuccessfully deleted %2$d files.</string>
+    <string name="dictionary_rename">Rename this dictionary</string>
+    <string name="errmes_dictionary_rename_failed">Renaming failed, error message:</string>
+    <string name="support">Support</string>
+    <string name="p_support_facebook">Facebook fan page</string>
+    <string name="p_support_rate">Rate it in Market</string>
+    <string name="p_support_rate_desc">Tell other users if you like it</string>
+    <string name="p_support_homepage">Visit Homepage</string>
+    <string name="p_support_homepage_desc">dicticc.wiki-lab.net</string>
+    <string name="p_location">Location</string>
+    <string name="behav_maxresults">Maximum result count</string>
+    <string name="behav_maxresults_details">How many items should be displayed at most in the search results?</string>
+    <string name="location_path_desc">Where to store the imported dictionaries</string>
+    <string name="invert_colors">Invert colors</string>
+    <string name="invert_colors_on">Black text on white background</string>
+    <string name="invert_colors_off">White text on black background</string>
+    <string name="no_reverse_dict_found">No reverse dictionary for this language pair was found. Please download and import it.</string>
+    <string name="restart_after_setting_change">You must close and re-open the app to put this setting into effect.</string>
+    <string name="unable_to_access_sdcard">Unable to access SD card. Please disconnect from PC.</string>
+    <string name="dict_list_sort_title">Sort dictionary list</string>
+    <string name="dict_list_sort_on">Sort list alphabetically</string>
+    <string name="dict_list_sort_off">Don\'t sort list</string>
+    <string name="report_error">Report error</string>
+    <string name="title_activity_dict_request">DictRequestActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="e_mail_address">Email Address:</string>
+    <string name="dict_cc_terms"><p>Hinweis: Aufgrund der Anwendung von Paragraph 10 der GPL v2 unterliegen die Daten von dict.cc NICHT den Bedingungen der GPL! </p>
+        <p>Nutzungsbedingungen der Übersetzungsdaten von dict.cc</p> Stand vom 11. Februar 2005 <p>Die Bezeichnung \"die Daten\" steht für die Inhalte der Datenbank, die auf den Seiten und in den Dateien auf www.dict.cc zur Verfügung gestellt wird, sowie für Auszüge daraus.</p>
+        <p>PERSÖNLICHER GEBRAUCH Die Nutzung der Daten für den persönlichen Gebrauch ist gestattet, solange die Daten nicht weitergegeben oder veröffentlicht werden.</p>
+        <p>VERWENDUNG IN COMPUTERPROGRAMMEN Die Verwendung der Daten in Computerprogrammen ist erlaubt, wenn folgende Bedingungen eingehalten werden: Programme, die Daten von dict.cc verwenden, müssen der GPL unterliegen. Das heißt unter anderem, dass der Quellcode des Programms der Allgemeinheit zur Weiterverwendung zur Verfügung gestellt werden muss. Die Übersetzungsdaten selbst dürfen nicht mit dem Programm mitgeliefert werden, sondern der Benutzer muss aufgefordert werden, die benötigte Datei für den eigenen Gebrauch direkt von dict.cc herunterzuladen. Dadurch wird gewährleistet, dass jeder Nutzer der Daten diese Lizenzbestimmungen gesehen und akzeptiert hat. Das Programm darf nicht dazu bestimmt oder geeignet sein, die Daten im Internet zu veröffentlichen, auch nicht auszugsweise.</p>
+        <p>SONSTIGE VERWENDUNG Weitere Arten der Verwendung der Daten, insbesondere die Verwendung auf Webseiten, auch auszugsweise, bedürfen einer ausdrücklichen schriftlichen Genehmigung des Betreibers von dict.cc, Ing. Paul Hemetsberger. Die Verwendung der Daten im Zusammenhang mit Suchmaschinen-Optimierungstaktiken oder Spamming in jeglicher Form ist strengstens untersagt.</p>
+        <p>WEITERE BESTIMMUNGEN Sämtliche Aspekte bezüglich der Übersetzungsdaten von dict.cc, die in diesen Bestimmungen nicht eindeutig behandelt sind, bedürfen einer schriftlichen Klärung vor einer eventuellen Verwendung. Bei Verstößen gegen diese Bedingungen behält sich der Betreiber von dict.cc rechtliche Schritte vor. Der Gerichtsstand ist Wien. Es gilt materielles österreichisches Recht.</p>
+        </string>
+    <string name="dict_cc_warning">Nach dem Absenden des folgenden Formulars erhältst du eine E-Mail mit weiteren Instruktionen zum Download der Daten. Die an dict.cc übermittelten Informationen werden elektronisch gespeichert. Jede Datei wird automatisch generiert und um Informationen erweitert, die im Missbrauchsfall Rückschlüsse auf deine Person zulassen. Leider ist diese Vorgehensweise durch verschiedene Missbrauchsfälle notwendig geworden.</string>
+    <string name="swap_language">Change direction</string>
+    <string name="manage_dictionaries">Manage dictionaries</string>
+</resources>

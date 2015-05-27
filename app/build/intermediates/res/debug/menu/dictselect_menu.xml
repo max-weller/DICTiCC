@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/import_dictionary" android:title="@string/import_dictionary" android:titleCondensed="@string/import_" android:icon="@drawable/ic_menu_add"></item>
+    <item android:id="@+id/download_dictionaries" android:title="@string/download_dictionaries" android:icon="@drawable/ic_menu_set_as"></item>
+</menu>
+<!-- From: file:/Users/mw/Projekte/Java/AndroidStudio/mw-android-dicticc3/app/src/main/res/menu/dictselect_menu.xml -->

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/swaplanguage" android:title="@string/swap_language"
+         android:icon="@android:drawable/ic_menu_rotate"
+        app:showAsAction="always"></item>
+    <item android:id="@+id/dictselectbutton" android:title="@string/manage_dictionaries"
+         android:icon="@android:drawable/ic_menu_preferences"
+        app:showAsAction="always"></item>
+    <item android:id="@+id/import_dictionary" android:title="@string/import_dictionary"
+        android:titleCondensed="@string/import_" android:icon="@android:drawable/ic_menu_add" android:visible="false"></item>
+    <item android:id="@+id/settings" android:title="@string/settings"
+        android:icon="@drawable/ic_menu_preferences"></item>
+    <item android:id="@+id/help" android:title="@string/help"
+        android:icon="@drawable/ic_menu_help"></item>
+    
+</menu>
+<!-- From: file:/Users/mw/Projekte/Java/AndroidStudio/mw-android-dicticc3/app/src/main/res/menu/searchactivity_menu.xml -->

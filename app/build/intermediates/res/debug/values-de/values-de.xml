@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/mw/Projekte/Java/AndroidStudio/mw-android-dicticc3/app/src/main/res/values-de/strings.xml -->
+    <eat-comment/>
+    <string-array name="dict_context_menu">
+        <item>Entfernen</item><item>Umbenennen</item><item>Details</item>
+    </string-array>
+    <string-array name="dict_location_captions">
+        <item>SD-Karte</item><item>Anwendungsspeicher</item>
+    </string-array>
+    <string-array name="dict_location_values">
+        <item>sdcard</item><item>app</item>
+    </string-array>
+    <!-- From: file:/Users/mw/Projekte/Java/AndroidStudio/mw-android-dicticc3/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/res/values-de/values.xml -->
+    <eat-comment/>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Zur Startseite"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Nach oben"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"Weitere Optionen"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"Fertig"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"Alle ansehen"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"App auswählen"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"Suchanfrage löschen"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"Suchanfrage"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"Suchen"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"Suchanfrage senden"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"Sprachsuche"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Freigeben für"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Freigeben für %s"</string>
+    <!-- From: file:/Users/mw/Projekte/Java/AndroidStudio/mw-android-dicticc3/app/src/main/res/values-de/strings.xml -->
+    <eat-comment/>
+    <string name="aboutscreen_heading">&lt;b>&lt;font size=8 color=#aaaaff>DICT&lt;/font>&lt;font size=6 color=#aaaaaa>i&lt;/font>&lt;font size=8 color=#aaaaff>CC&lt;/font>&lt;/b>
+&lt;br>Offline Translator for Android</string>
+    <string name="aboutscreen_helptext">
+    &lt;p>Website und Dokumentation zur App:&lt;/p>
+    &lt;p>&lt;a href="http://dicticc.wikilab.de">http://dicticc.wikilab.de&lt;/a>&lt;/p>
+    &lt;p>&lt;b>Copyright-Hinweise:&lt;/b>&lt;/p>
+    &lt;p>Copyright (c) 2011 by &lt;a href="http://www.max-weller.de">Max Weller&lt;/a>&lt;/p>
+    &lt;p>Die Wörterbuch-Datenbanken von &lt;b>dict.cc&lt;/b> können unter folgendem Link angefordert werden. Dort sind auch die Nutzungsbedingungen nachzulesen.&lt;/p>
+    &lt;p>&lt;a href="http://www1.dict.cc/translation_file_request.php">http://www1.dict.cc/translation_file_request.php&lt;/a>&lt;/p>
+    &lt;p>DICTiCC is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.&lt;/p>
+		&lt;p>DICTiCC is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.&lt;/p>
+		&lt;p>You should have received a copy of the GNU General Public License
+		along with DICTiCC.  If not, see &lt;a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/&lt;/a>.&lt;/p>
+		</string>
+    <string name="app_name">Offline Translator</string>
+    <string name="behav_livesearch">Live-Suche</string>
+    <string name="behav_livesearch_desc">während dem Eintippen suchen</string>
+    <string name="behav_maxresults">Maximale Anzahl Ergebnisse</string>
+    <string name="behav_maxresults_details">Wieviele Ergebnisse sollen in der Trefferliste maximal gezeigt werden?</string>
+    <string name="behavior">Verhalten</string>
+    <string name="close">Schließen</string>
+    <string name="copy_translation_to_clipboard">Übersetzung kopieren</string>
+    <string name="count_words_imported">%d Wörter importiert</string>
+    <string name="dict_list_sort_off">Unsortierte Liste</string>
+    <string name="dict_list_sort_on">Liste wird alphabetisch sortiert</string>
+    <string name="dict_list_sort_title">Wörterbuchliste sortieren</string>
+    <string name="dictionary">Wörterbuch</string>
+    <string name="dictionary_deleting">Löschen ...</string>
+    <string name="dictionary_download_url">http://www1.dict.cc/translation_file_request.php</string>
+    <string name="dictionary_rename">Wörterbuch umbenennen</string>
+    <string name="download_dictionaries">Wörterbücher herunterladen...</string>
+    <string name="download_info_dlg_content">- Bitte die Nutzungsbedingungen lesen.\n- Bei Version darf NICHT \'Elcombri\' stehen, sondern \'tab delimited\'.\n- Wenn möglich eine Mail-Adresse verwenden, auf die du von diesem Gerät zugreifen kannst.\n- Weitere Infos in der Hilfe.</string>
+    <string name="download_info_dlg_okbutton">Gelesen und verstanden!</string>
+    <string name="download_info_dlg_title">Hinweise</string>
+    <string name="e_mail_address">Email Address:</string>
+    <string name="enter_term_helptext">&lt;p>&lt;b>Bitte einen Suchbegriff eingeben.&lt;/b>&lt;/p>Letzte Suchbegriffe:</string>
+    <string name="enter_word">Wort eingeben...</string>
+    <string name="errmes_cant_show_file_list">Dateiliste kann nicht angezeigt werden.\nAktueller Ordner:\n%1$s\nFehler:\n%2$s</string>
+    <string name="errmes_dictionary_elcombri">Dateien im "elcombri"-Format können nicht gelesen werden. Bitte im "tab-delimited"-Format herunterladen!</string>
+    <string name="errmes_dictionary_import_failed">Aufgrund eines Fehlers wurde der Import nach %1$d Wörtern abgebrochen. Eventuell ist die Datei fehlerhaft. Dies dauerte %2$d ms. Wenn dieser Fehler bestehen bleibt, versuche den Import am PC (Infos unter dicticc.wikilab.de/pc).</string>
+    <string name="errmes_dictionary_rename_failed">Umbenennen nicht möglich:</string>
+    <string name="errmes_no_dictionary_selected">Bitte ein Wörterbuch auswählen!</string>
+    <string name="errmes_no_term_typed">Bitte einen Suchbegriff eingeben!</string>
+    <string name="error">Fehler</string>
+    <string name="hello">Hello World!</string>
+    <string name="help">Hilfe</string>
+    <string name="hide_keyboard_after_search">Tastatur ausblenden</string>
+    <string name="hide_keyboard_after_search_desc">nach dem Suchen</string>
+    <string name="import_">Importieren</string>
+    <string name="import_all_dictionaries">Alle Wörterbücher in diesem Ordner importieren ...</string>
+    <string name="import_another_dictionary">Weitere importieren</string>
+    <string name="import_dictionary">Wörterbuch importieren</string>
+    <string name="importing_dictionary_long">Wörterbuch wird importiert\nEile mit Weile ...\n</string>
+    <string name="invert_colors">Farben umkehren</string>
+    <string name="invert_colors_off">Weiße Schrift auf schwarzem Grund</string>
+    <string name="invert_colors_on">Schwarze Schrift auf weißem Grund</string>
+    <string name="location_path_desc">Wo sollen die importierten Wörterbücher gespeichert werden?</string>
+    <string name="manage_dictionaries">Manage dictionaries</string>
+    <string name="message_dictionary_deleted">Zu löschen: %1$d\nErfolgreich: %2$d</string>
+    <string name="message_dictionary_deleted_title">Wörterbuch gelöscht</string>
+    <string name="message_dictionary_import_successful">Wörterbuch "%1$s" erfolgreich importiert. Es enthält %2$d Wörter. Dies dauerte %3$d ms.</string>
+    <string name="no_dictionaries_helptext">&lt;p>&lt;b>&lt;font color="#ffff66">Du hast noch keine Wörterbücher geladen.&lt;/font>&lt;/b>&lt;/p>&lt;p>Drücke die Menütaste, um ein Wörterbuch von der SD-Karte zu importieren, oder um weitere Informationen zum Download von Wörterbüchern aus dem Internet zu erhalten.&lt;/p></string>
+    <string name="no_dictionary_selected">kein Wörterbuch gewählt</string>
+    <string name="no_dictionary_selected_helptext">&lt;p>&lt;b>Kein Wörterbuch ausgewählt.&lt;/b>&lt;/p>&lt;p>Drücke den Button "Wörterbuch" rechts oben. Dort kannst du ein Wörterbuch auswählen, falls du schon eines importiert hast.&lt;/p>&lt;p>Ansonsten folge dort den Anweisungen, um Wörterbücher herunterzuladen und zu importieren.&lt;/p></string>
+    <string name="no_reverse_dict_found">Kein umgekehrtes Wörterbuch für dieses Sprachpaar gefunden. Bitte lade es herunter und importiere es.</string>
+    <string name="p_location">Speicherort</string>
+    <string name="p_support_facebook">Facebook-Seite besuchen</string>
+    <string name="p_support_homepage">Homepage besuchen</string>
+    <string name="p_support_homepage_desc">dicticc.wikilab.de</string>
+    <string name="p_support_rate">Im Market bewerten</string>
+    <string name="p_support_rate_desc">Erzähle anderen über die App</string>
+    <string name="question_import_this_file_as_dictionary">Diese Datei als Wörterbuch importieren?</string>
+    <string name="report_error">Fehlerbericht</string>
+    <string name="restart_after_setting_change">Bitte starte die App neu um die Änderung wirksam zu machen.</string>
+    <string formatted="false" name="result_count_toast">%d Ergebnisse in %.2g sek</string>
+    <string name="search_translation_in_language">Suche nach %1$s</string>
+    <string name="select">Auswählen</string>
+    <string name="select_dictionary">Wörterbuch auswählen...</string>
+    <string name="settings">Optionen</string>
+    <string name="support">Support</string>
+    <string name="swap_language">Change direction</string>
+    <string name="unable_to_access_sdcard">Kein Zugriff auf die SD-Karte möglich. Bitte Verbindung mit dem PC trennen.</string>
+</resources>

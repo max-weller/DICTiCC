@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- 
+http://www.androidengineer.com/2010/06/using-themes-in-android-applications.html
+ -->
+    <style name="Dark" parent="Theme.AppCompat">
+      <item name="groupHeader">@style/group_header_d</item>
+      <item name="translationLeft">@style/translation_left_d</item>
+      <item name="translationRight">@style/translation_right_d</item>
+    </style>
+
+    <style name="Light" parent="Theme.AppCompat.Light">
+      <item name="groupHeader">@style/group_header_l</item>
+      <item name="translationLeft">@style/translation_left_l</item>
+      <item name="translationRight">@style/translation_right_l</item>
+    </style>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="horizontal">
+  
+  <TextView android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" android:id="@+id/translation_1"
+            style="?translationLeft"></TextView>
+  <TextView android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" android:id="@+id/translation_2"
+            style="?translationRight"></TextView>
+  <TextView android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" android:id="@+id/translation_3"
+            style="?translationRight"></TextView>
+  
+</LinearLayout>
+<!-- From: file:/Users/mw/Projekte/Java/AndroidStudio/mw-android-dicticc3/app/src/main/res/layout/listitem_translation.xml -->
